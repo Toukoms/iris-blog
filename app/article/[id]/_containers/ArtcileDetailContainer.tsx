@@ -7,7 +7,7 @@ async function getArticleById(id: string) {
   const res = await fetch(`${BASE_URL}/api/articles/${id}`, {
     cache: "no-store",
   });
-  const article: ArticleType = await res.json();
+  const article: ArticleType = JSON.parse(await res.json());
   return article;
 }
 

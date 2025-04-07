@@ -12,5 +12,5 @@ export async function GET(
     return NextResponse.json({ error: "Article not found" }, { status: 404 });
   }
 
-  return NextResponse.json(article);
+  return NextResponse.json(JSON.stringify(article));
 }
