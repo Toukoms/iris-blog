@@ -1,0 +1,122 @@
+[
+  {
+    "id": "fa2456b9-3b57-4329-9226-064536f23487",
+    "title": "Guide setup dev environment basics",
+    "description": "This tutorial covers the basic setup for a dev project...",
+    "image": "https://picsum.photos/seed/pic1/600/400",
+    "content": "*This tutorial will guide you through the basics of setting up a modern web development environment.*\n\n**Make sure to follow each step carefully to avoid issues.**\n\n```bash\nnpm install -g create-next-app\ncreate-next-app my-app\ncd my-app\nnpm run dev\n```\n\nAliquip reprehenderit labore nulla pariatur veniam. Non labore exercitation eiusmod nisi officia. In incididunt nulla exercitation officia.\n\n**Common issues to watch for:**\n- *Port already in use*\n- *Node version mismatch*\n\nTo fix Node version issues:\n```bash\nnvm install 18\nnvm use 18\n```\n\nAlways structure your project like this:\n```plaintext\nmy-app/\n├── components/\n├── pages/\n├── public/\n├── styles/\n└── tsconfig.json\n```\n\nUse `.env.local` for environment variables:\n```env\nNEXT_PUBLIC_API_URL=https://api.example.com\n```\n\nThat’s it! You now have a working Next.js environment.\n",
+    "createdAt": "2025-04-07T16:21:00.000Z"
+  },
+  {
+    "id": "2944fa44-e05f-44ef-91f0-f0ea8fd02b9d",
+    "title": "Install tailwind next config tutorial",
+    "description": "Learn how to integrate Tailwind CSS into a Next.js app...",
+    "image": "https://picsum.photos/seed/pic2/600/400",
+    "content": "*Tailwind CSS is a utility-first CSS framework that speeds up styling.*\n\n**Here's how to set it up in Next.js:**\n\n```bash\nnpm install -D tailwindcss postcss autoprefixer\nnpx tailwindcss init -p\n```\n\nUpdate `tailwind.config.js`:\n```js\ncontent: [\"./pages/**/*.{js,ts,jsx,tsx}\", \"./components/**/*.{js,ts,jsx,tsx}\"],\n```\n\nThen update `./styles/globals.css`:\n```css\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n```\n\n*Restart the dev server after changes.*\n\nNow add this to `pages/index.tsx`:\n```tsx\nexport default function Home() {\n  return <h1 className=\"text-3xl font-bold underline\">Hello Tailwind</h1>;\n}\n```\n\nTailwind is now fully integrated.\n",
+    "createdAt": "2025-04-07T16:21:01.000Z"
+  },
+  {
+    "id": "dcd7338c-79c4-45f5-879a-70cc4db34891",
+    "title": "Firebase auth integration nextjs",
+    "description": "Authenticate users in your Next.js app using Firebase Auth...",
+    "image": "https://picsum.photos/seed/pic3/600/400",
+    "content": "*Firebase Authentication is powerful and simple.*\n\n**Here's how to set it up in Next.js:**\n\n```bash\nnpm install firebase\n```\n\nCreate a `firebase.ts` file:\n```ts\nimport { initializeApp } from 'firebase/app';\nimport { getAuth } from 'firebase/auth';\n\nconst firebaseConfig = {\n  apiKey: 'YOUR_API_KEY',\n  authDomain: 'YOUR_AUTH_DOMAIN',\n};\n\nconst app = initializeApp(firebaseConfig);\nexport const auth = getAuth(app);\n```\n\n*Use context or hooks to manage auth state.*\n\nFirebase lets users log in with email, Google, and more.\n",
+    "createdAt": "2025-04-07T16:21:02.000Z"
+  },
+  {
+    "id": "15eae9c0-b3b7-4ac8-bc02-61b22ff5c28f",
+    "title": "Deploy vercel next tailwind tutorial",
+    "description": "Deploy your styled Next.js site to Vercel in minutes...",
+    "image": "https://picsum.photos/seed/pic4/600/400",
+    "content": "*Vercel is the fastest way to deploy Next.js.*\n\n**Steps:**\n\n1. Push your project to GitHub\n2. Go to [vercel.com](https://vercel.com)\n3. Click **New Project**\n4. Import your GitHub repo\n\n*No configuration needed!*\n\nOnce deployed, updates go live on every `git push`.\n",
+    "createdAt": "2025-04-07T16:21:03.000Z"
+  },
+  {
+    "id": "e10e216b-527e-40fd-91a5-6a18c87ad18f",
+    "title": "Write typescript react components",
+    "description": "Learn how to build typed functional components in React...",
+    "image": "https://picsum.photos/seed/pic5/600/400",
+    "content": "*TypeScript enhances React development with type safety.*\n\n```tsx\ntype Props = {\n  title: string;\n};\n\nconst Header: React.FC<Props> = ({ title }) => {\n  return <h1>{title}</h1>;\n};\n```\n\n*Use interfaces or types to define props.*\n\nAvoid using `any` to preserve type safety.\n",
+    "createdAt": "2025-04-07T16:21:04.000Z"
+  },
+  {
+    "id": "35ef53f3-64d3-4a4f-a221-d12e4cb97f35",
+    "title": "Debugging techniques for javascript beginners",
+    "description": "Learn the essentials of debugging in JavaScript using DevTools...",
+    "image": "https://picsum.photos/seed/pic6/600/400",
+    "content": "*Debugging is a critical part of development.*\n\n**Start with Chrome DevTools:**\n\n```js\nconsole.log('value:', value);\ndebugger;\n```\n\nUse the **Sources tab** to set breakpoints. Step through your code and inspect variables.\n\n*Common tips:*\n- Watch the call stack\n- Use conditional breakpoints\n- Don’t ignore warnings\n\n**Debug smarter, not harder.**\n",
+    "createdAt": "2025-04-07T16:21:05.000Z"
+  },
+  {
+    "id": "f74e2cf1-13c5-48ec-b027-6256e6f9c859",
+    "title": "Reusable react hooks tutorial intro",
+    "description": "Create and use custom hooks to simplify your components...",
+    "image": "https://picsum.photos/seed/pic7/600/400",
+    "content": "*Hooks help reuse logic without copying code.*\n\nExample:\n```tsx\nimport { useState, useEffect } from 'react';\n\nfunction useWindowWidth() {\n  const [width, setWidth] = useState(window.innerWidth);\n\n  useEffect(() => {\n    const handleResize = () => setWidth(window.innerWidth);\n    window.addEventListener('resize', handleResize);\n    return () => window.removeEventListener('resize', handleResize);\n  }, []);\n\n  return width;\n}\n```\n\n*Use in your component:* `const width = useWindowWidth();`\n",
+    "createdAt": "2025-04-07T16:21:06.000Z"
+  },
+  {
+    "id": "c02ebabe-90dc-4703-bd84-9fd41ea67b9d",
+    "title": "Intro to api routes in nextjs",
+    "description": "Learn how to create simple API routes in your Next.js project...",
+    "image": "https://picsum.photos/seed/pic8/600/400",
+    "content": "*Next.js lets you define API endpoints easily.*\n\nFile: `pages/api/hello.ts`\n```ts\nexport default function handler(req, res) {\n  res.status(200).json({ message: 'Hello world' });\n}\n```\n\nUse with fetch:\n```ts\nconst res = await fetch('/api/hello');\n```\n\n*Great for internal tools and mock APIs.*\n",
+    "createdAt": "2025-04-07T16:21:07.000Z"
+  },
+  {
+    "id": "ab249574-1b7d-4867-a538-fec9738ae9f0",
+    "title": "Form validation react hook form",
+    "description": "Use React Hook Form for simple, powerful validations...",
+    "image": "https://picsum.photos/seed/pic9/600/400",
+    "content": "*React Hook Form simplifies handling forms.*\n\nInstall:\n```bash\nnpm install react-hook-form\n```\n\nExample:\n```tsx\nconst { register, handleSubmit } = useForm();\nconst onSubmit = (data) => console.log(data);\n\n<form onSubmit={handleSubmit(onSubmit)}>\n  <input {...register(\"email\")} />\n</form>\n```\n\n*Add validations:* `register(\"email\", { required: true })`\n",
+    "createdAt": "2025-04-07T16:21:08.000Z"
+  },
+  {
+    "id": "3c6f93fc-48a8-420d-bc67-8e7bbbe78c2c",
+    "title": "Dark mode toggle using tailwind",
+    "description": "Add a dark mode switch with Tailwind and state management...",
+    "image": "https://picsum.photos/seed/pic10/600/400",
+    "content": "*Dark mode improves UX in low light.*\n\nTailwind CSS with class strategy:\n```js\ntailwind.config.js:\n  darkMode: 'class',\n```\n\nToggle with state:\n```tsx\nconst [dark, setDark] = useState(false);\n<body className={dark ? 'dark' : ''}>\n```\n\nTailwind classes: `dark:bg-gray-900`\n",
+    "createdAt": "2025-04-07T16:21:09.000Z"
+  },
+  {
+    "id": "b74f2516-5c3f-441c-88cb-c7f02f8c5e60",
+    "title": "Connecting firebase firestore react",
+    "description": "Learn to fetch and write data to Firestore in React apps...",
+    "image": "https://picsum.photos/seed/pic11/600/400",
+    "content": "*Firebase Firestore is a NoSQL cloud DB.*\n\n```ts\nimport { getFirestore, collection, getDocs } from 'firebase/firestore';\n\nconst db = getFirestore();\nconst querySnapshot = await getDocs(collection(db, 'posts'));\nquerySnapshot.forEach(doc => console.log(doc.data()));\n```\n\n*Great for real-time apps and scaling.*\n",
+    "createdAt": "2025-04-07T16:21:10.000Z"
+  },
+  {
+    "id": "6fe5fa37-03c2-4f7e-aec4-b464962c5e0b",
+    "title": "Deploying static site with github pages",
+    "description": "Use GitHub Pages to publish your static site in minutes...",
+    "image": "https://picsum.photos/seed/pic12/600/400",
+    "content": "*GitHub Pages is ideal for static content.*\n\nSteps:\n1. Create a `gh-pages` branch\n2. Run `npm run build`\n3. Push `build/` to `gh-pages`\n\nYou can automate this using:\n```bash\nnpm install gh-pages --save-dev\n```\n\nUpdate `package.json`:\n```json\n\"scripts\": {\n  \"deploy\": \"gh-pages -d build\"\n}\n```\n\n*Now just run:* `npm run deploy`\n",
+    "createdAt": "2025-04-07T16:21:11.000Z"
+  },
+  {
+    "id": "b5020a80-020f-4a5d-89df-c01f280cae68",
+    "title": "Intro to zustand state management",
+    "description": "Try Zustand for lightweight, scalable state management...",
+    "image": "https://picsum.photos/seed/pic13/600/400",
+    "content": "*Zustand is a minimal state manager for React.*\n\n```ts\nimport create from 'zustand';\n\nconst useStore = create(set => ({\n  count: 0,\n  increment: () => set(state => ({ count: state.count + 1 }))\n}));\n```\n\nUse in components:\n```tsx\nconst count = useStore(state => state.count);\n```\n",
+    "createdAt": "2025-04-07T16:21:12.000Z"
+  },
+  {
+    "id": "8b4a6358-6c87-45fd-9b14-4bcb9c3d011e",
+    "title": "CSS grid layout cheat sheet tutorial",
+    "description": "Master CSS Grid layout with this reference tutorial...",
+    "image": "https://picsum.photos/seed/pic14/600/400",
+    "content": "*CSS Grid is powerful for 2D layouts.*\n\n```css\n.container {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1rem;\n}\n```\n\nGrid areas:\n```css\ngrid-template-areas:\n  'header header'\n  'main sidebar';\n```\n\n*Supports alignment, nesting, and more!*\n",
+    "createdAt": "2025-04-07T16:21:13.000Z"
+  },
+  {
+    "id": "b7f6dc2a-5d7f-4b47-985f-28dc27b91b5b",
+    "title": "Basic graphql query with apollo client",
+    "description": "Use Apollo Client to fetch data from a GraphQL API...",
+    "image": "https://picsum.photos/seed/pic15/600/400",
+    "content": "*Apollo Client makes GraphQL easy.*\n\nInstall:\n```bash\nnpm install @apollo/client graphql\n```\n\nSetup:\n```ts\nconst client = new ApolloClient({\n  uri: '/api/graphql',\n  cache: new InMemoryCache()\n});\n```\n\nQuery:\n```ts\nuseQuery(gql`{\n  books { title author }\n}`);\n```\n",
+    "createdAt": "2025-04-07T16:21:14.000Z"
+  }
+]
