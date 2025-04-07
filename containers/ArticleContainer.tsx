@@ -1,8 +1,10 @@
 import { ArticleType } from "@/types/article";
 import Article from "@/components/Article";
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
 async function getArticles() {
-  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/articles");
+  const res = await fetch(`${BASE_URL}/api/posts`, { cache: "no-store" });
   const articles: ArticleType[] = await res.json();
   return articles;
 }
