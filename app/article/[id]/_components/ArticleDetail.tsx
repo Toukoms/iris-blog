@@ -23,7 +23,9 @@ function ArticleDetail(props: ArticleType) {
       <div className="flex items-center justify-between">
         <p className="flex items-center text-zinc-500">
           <span className="text-sm">Created at </span>
-          <span className="font-semibold">{props.createdAt}</span>
+          <span className="font-semibold">
+            {new Date(props.createdAt).toLocaleDateString()}
+          </span>
         </p>
       </div>
       <div className="mt-4">
