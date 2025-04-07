@@ -1,19 +1,25 @@
 import { ArticleType } from "@/types/acticle";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
+import ReturnBack from "./ReturnBack";
 
 function ArticleDetail(props: ArticleType) {
   return (
-    <article className="prose prose-lg">
-      <Image
-        src={props.image}
-        alt={props.title}
-        className="my-4 w-full aspect-video object-cover"
-        width={1980}
-        height={1980}
-        loading="lazy"
-      />
-      <h1 className="sr-only">{props.title}</h1>
+    <article className="prose prose-lg w-full max-w-none">
+      <ReturnBack />
+      <h1 className="text-4xl lg:text-6xl mt-6 lg:mt-8 text-center">
+        {props.title}
+      </h1>
+      <div className="my-4 relative w-full h-80 rounded-md border overflow-hidden">
+        <Image
+          src={props.image}
+          alt={props.title}
+          className="w-full h-full absolute object-cover object-center"
+          width={1980}
+          height={1980}
+          loading="lazy"
+        />
+      </div>
       <div className="flex items-center justify-between">
         <p className="flex items-center text-zinc-500">
           <span className="text-sm">Created at </span>
