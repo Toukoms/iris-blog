@@ -1,5 +1,4 @@
 import ArticleContainer from "@/containers/ArticleContainer";
-import Image from "next/image";
 
 export const revalidate = 10; // ISR every 10 seconds
 
