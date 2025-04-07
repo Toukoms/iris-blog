@@ -13,10 +13,7 @@ function ReturnBack({ className }: { className?: string }) {
       )}
     >
       <ArrowLeft size={20} className="text-primary font-bold" />
-      <button
-        className="link link-primary text-lg font-bold"
-        onClick={() => router.back()}
-      >
+      <button className="text-lg font-bold" onClick={() => router.back()}>
         Return Back
       </button>
     </div>

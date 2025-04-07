@@ -1,12 +1,10 @@
 import { ArticleType } from "@/types/article";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
-import ReturnBack from "./ReturnBack";
 
 function ArticleDetail(props: ArticleType) {
   return (
     <article className="prose prose-lg w-full max-w-none">
-      <ReturnBack />
       <h1 className="text-4xl lg:text-6xl mt-6 lg:mt-8 text-center">
         {props.title}
       </h1>
