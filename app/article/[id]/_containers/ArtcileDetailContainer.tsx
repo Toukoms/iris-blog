@@ -1,23 +1,16 @@
-"use client";
-import { useState, useEffect } from "react";
-import { ArticleType } from "@/types/acticle";
+import { ArticleType } from "@/types/article";
 import ArticleDetail from "../_components/ArticleDetail";
 
-const ArticleDetailContainer = ({ id }: { id: string }) => {
-  const [article, setArticle] = useState<ArticleType | null>(null);
+async function getArticleById(id: string) {
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_API_URL + "/api/articles/" + id
+  );
+  const article: ArticleType = await res.json();
+  return article;
+}
 
-  useEffect(() => {
-    async function getArticleById(): Promise<ArticleType> {
-      const res = await fetch("/api/articles/" + id);
-      return res.json();
-    }
-
-    getArticleById().then((data) => {
-      if (data) {
-        setArticle(data);
-      }
-    });
-  }, []);
+const ArticleDetailContainer = async ({ id }: { id: string }) => {
+  const article = await getArticleById(id);
 
   return (
     <>{article === null ? <p>Loading...</p> : <ArticleDetail {...article} />}</>

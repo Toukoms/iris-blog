@@ -1,4 +1,4 @@
-import { ArticleType } from "@/types/acticle";
+import { ArticleType } from "@/types/article";
 import Image from "next/image";
 import Link from "next/link";
 
