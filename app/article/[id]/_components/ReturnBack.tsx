@@ -7,7 +7,10 @@ function ReturnBack({ className }: { className?: string }) {
   const router = useRouter();
   return (
     <div
-      className={cn("flex items-center w-fit gap-2 cursor-pointer", className)}
+      className={cn(
+        "flex items-center w-fit gap-2 hover:cursor-pointer",
+        className
+      )}
     >
       <ArrowLeft size={20} className="text-primary font-bold" />
       <button
