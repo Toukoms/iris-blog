@@ -4,7 +4,7 @@ A running list of tasks and improvements for the application.
 
 ## 🚀 Features
 
-- [ ] Authentication
+- [x] Authentication
 - [ ] Create article
 - [ ] Read a list of articles
 - [ ] Read article
