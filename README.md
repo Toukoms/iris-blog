@@ -1,26 +1,17 @@
-# IRIS Blog
+# IRIS BLOG
 
-This is a mini blog build with Next.js. Create your own .env.local and copy the template in .env.template
+Share blogs about technologies: tips, tech stack, errors, experiences...
 
-Link demo: [demo](https://iris-blog.vercel.app)
+## Tech Stack
 
-## Getting Started
+It use [T3 Stack](https://create.t3.gg/).
 
-First, run the development server:
+- Language: TypeScript
+- Frontend: Next.js (App Router), Tailwind CSS
+- Backend: API Route Next.js + tRPC
+- Database: Prisma + PostgreSQL
+- Authentication: Auth.js
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## TODOs
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
+You can find [here](TODOs.md) the list tasks to bring IRIS BLOG to life.
