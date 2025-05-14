@@ -20,6 +20,13 @@ export const articleRouter = createTRPCRouter({
         where: {
           id: input,
         },
+        include: {
+          author: {
+            select: {
+              name: true,
+            },
+          },
+        },
       });
     }),
   createArticle: protectedProcedure
