@@ -5,6 +5,7 @@ export const createArticleSchema = z.object({
 });
 
 export const editArticleSchema = createArticleSchema.extend({
+  id: z.string().cuid(),
   content: z.string(),
   published: z.boolean().optional(),
 });
