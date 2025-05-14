@@ -34,25 +34,26 @@ function NewArticlePage() {
     <div className="mx-auto max-w-xl ">
       <h2>Create a new article</h2>
       <form onSubmit={handleSubmit} className="flex w-full flex-col space-y-4">
-        <div className="flex flex-col">
-          <label htmlFor="title" className="mb-2 font-semibold text-sm">
-            Title
-          </label>
+        <fieldset className="fieldset mb-0">
+          <legend className="fieldset-legend">Article title</legend>
           <input
             type="text"
-            placeholder="Add title here"
-            name="title"
             className="input w-full"
+            placeholder="My awesome article"
+            name="title"
+            required
           />
-          {articleMutation.error && (
-            <p className="m-0 pt-2 text-error text-sm">
-              {articleMutation.error.shape?.data?.zodError?.fieldErrors?.title}
-            </p>
-          )}
-        </div>
+          <p className="label my-0">
+            You can edit article title later in the article editor.
+          </p>
+        </fieldset>
+
+        <p className="my-4 h-8 pt-2 text-error text-sm">
+          {articleMutation.error?.shape?.data?.zodError?.fieldErrors?.title}
+        </p>
 
         <button type="submit" className="btn btn-primary">
-          Create Article
+          {articleMutation.isPending ? "Creating article..." : "Create article"}
         </button>
       </form>
     </div>
