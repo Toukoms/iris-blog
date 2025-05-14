@@ -3,6 +3,7 @@
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
 import type { editArticleSchema } from "@/schema/article";
 import { api } from "@/trpc/react";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -12,16 +13,38 @@ type TEditArticleForm = z.infer<typeof editArticleSchema>;
 type Params = Promise<{ id: string }>;
 
 function EditArticlePage(props: { params: Params }) {
+  const router = useRouter();
   const params = use(props.params);
   const id = params.id;
-
-  const router = useRouter();
 
   if (!id) {
     router.back();
   }
 
   const articleQuery = api.article.getArticleById.useQuery(id);
+
+  useEffect(() => {
+    if (articleQuery.isSuccess && articleQuery.data) {
+      getSession().then((session) => {
+        if (!session) {
+          toast.error("You need to be logged in to edit an article");
+          router.back();
+        }
+        const user = session?.user;
+        const isAuthor = user?.id === articleQuery.data?.authorId;
+        if (!isAuthor) {
+          toast.error("You are not the author of this article");
+          router.back();
+        }
+      });
+      setFormData({
+        id: articleQuery.data.id,
+        title: articleQuery.data.title,
+        content: articleQuery.data.content as string,
+        published: articleQuery.data.published,
+      });
+    }
+  }, [articleQuery.data, articleQuery.isSuccess, router]);
 
   const updateArticleMutation = api.article.updateArticle.useMutation({
     onSuccess: () => {
@@ -39,7 +62,6 @@ function EditArticlePage(props: { params: Params }) {
     content: "<h2>Start writing here</h2>",
     published: false,
   });
-  console.log("🚀 ~ EditArticlePage ~ formData.content:", formData.content);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,17 +69,6 @@ function EditArticlePage(props: { params: Params }) {
       ...formData,
     });
   };
-
-  useEffect(() => {
-    if (articleQuery.isSuccess && articleQuery.data) {
-      setFormData({
-        id: articleQuery.data.id,
-        title: articleQuery.data.title,
-        content: articleQuery.data.content as string,
-        published: articleQuery.data.published,
-      });
-    }
-  }, [articleQuery.data, articleQuery.isSuccess]);
 
   if (articleQuery.isLoading) {
     return <div>Loading...</div>;
