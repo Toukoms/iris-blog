@@ -20,7 +20,7 @@ async function Header() {
             <span>Create Article</span>
           </Link>
           <Link className="flex justify-end" href={"/profile"}>
-            <div className="flex h-10 items-center gap-2 rounded-full bg-gray-300/20 p-2">
+            <div className="flex h-10 items-center gap-2 rounded-full bg-gray-300/20 p-2 pl-4">
               <span>{session?.user.name}</span>
               {session?.user.image ? (
                 <Image
