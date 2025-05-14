@@ -14,6 +14,7 @@ A running list of tasks and improvements for the application.
   - [X] Setup Rich Text Editor
   - [X] Update from tRPC
 - [X] Read a list of articles
+- [X] Filter articles from home page of the only published
 - [ ] Read article
 - [ ] Remove article
 - [ ] Add categories (tags)

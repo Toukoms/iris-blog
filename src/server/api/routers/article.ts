@@ -4,7 +4,14 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const articleRouter = createTRPCRouter({
   getArticles: publicProcedure.query(({ ctx }) => {
-    return ctx.db.article.findMany();
+    return ctx.db.article.findMany({
+      where: {
+        published: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
   }),
   getArticleById: publicProcedure
     .input(z.string().cuid())
