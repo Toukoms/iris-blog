@@ -10,20 +10,14 @@
 		"isolatedModules": true,
 		"jsx": "preserve",
 		/* Bundled projects */
-		"lib": [
-			"dom",
-			"dom.iterable",
-			"ES2022"
-		],
+		"lib": ["dom", "dom.iterable", "ES2022"],
 		"module": "ESNext",
 		"moduleDetection": "force",
 		"moduleResolution": "Bundler",
 		"noEmit": true,
 		"noUncheckedIndexedAccess": true,
 		"paths": {
-			"@/*": [
-				"./src/*"
-			]
+			"@/*": ["./src/*"]
 		},
 		"plugins": [
 			{
@@ -37,10 +31,7 @@
 		"target": "es2022",
 		"verbatimModuleSyntax": true
 	},
-	"exclude": [
-		"node_modules",
-		"src/generated"
-	],
+	"exclude": ["node_modules", "src/generated"],
 	"include": [
 		"next-env.d.ts",
 		"**/*.ts",

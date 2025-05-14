@@ -3,12 +3,14 @@
 	"files": {
 		"ignore": [
 			"node_modules",
-			"src/generated"
+			"src/generated",
+			"./src/styles/globals.css"
 		],
 		"ignoreUnknown": false
 	},
 	"formatter": {
-		"enabled": true
+		"enabled": true,
+		"formatWithErrors": true
 	},
 	"linter": {
 		"enabled": true,

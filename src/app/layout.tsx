@@ -1,14 +1,15 @@
 import "@/styles/globals.css";
 
-import type { Metadata } from "next";
-import { Geist } from "next/font/google";
-
 import { TRPCReactProvider } from "@/trpc/react";
 import { HydrateClient } from "@/trpc/server";
+import type { Metadata } from "next";
+import { Geist } from "next/font/google";
+import { ToastContainer } from "react-toastify";
+import Header from "./_layout/header";
 
 export const metadata: Metadata = {
   title: "Iris Blog - Find tech news and articles",
-  authors: [{ name: "Toukoms" }],
+  authors: [{ name: "Tokiniaina" }],
   description: "",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
@@ -25,7 +26,11 @@ export default function RootLayout({
     <html lang="en" className={`${geist.variable}`}>
       <body>
         <TRPCReactProvider>
-          <HydrateClient>{children}</HydrateClient>
+          <HydrateClient>
+            <Header />
+            <main>{children}</main>
+            <ToastContainer />
+          </HydrateClient>
         </TRPCReactProvider>
       </body>
     </html>
