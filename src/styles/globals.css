@@ -13,6 +13,6 @@
 
 @layer base {
 	main {
-		@apply container mx-auto px-4 prose prose-sm xl:prose-lg prose-invert;
+		@apply container mx-auto px-4 prose prose-sm xl:prose-lg prose-invert overflow-y-auto h-[92vh];
 	}
 }
