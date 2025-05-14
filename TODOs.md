@@ -4,11 +4,14 @@ A running list of tasks and improvements for the application.
 
 ## 🚀 Features
 
-- [ ] Authentication
-- [ ] Create article
-- [ ] Read a list of articles
-- [ ] Read article
+- [x] Authentication
+- [X] Create article
+  - [x] New article Page
+  - [X] Title form
+  - [X] Error handler
 - [ ] Update article
+- [X] Read a list of articles
+- [ ] Read article
 - [ ] Remove article
 - [ ] Add categories (tags)
 - [ ] Add comments in a article
