@@ -57,6 +57,7 @@
 	"packageManager": "pnpm@10.6.5",
 	"private": true,
 	"scripts": {
+		"build:prod": "prisma migrate deploy && next build",
 		"build": "next build",
 		"check": "biome check .",
 		"check:unsafe": "biome check --write --unsafe .",
