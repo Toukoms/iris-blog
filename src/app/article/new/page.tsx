@@ -2,7 +2,9 @@
 
 import type { createArticleSchema } from "@/schema/article";
 import { api } from "@/trpc/react";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 import type { z } from "zod";
 
@@ -10,6 +12,14 @@ type TCreateArticle = z.infer<typeof createArticleSchema>;
 
 function NewArticlePage() {
 	const router = useRouter();
+
+	useEffect(() => {
+		getSession().then((session) => {
+			if (!session) {
+				router.back();
+			}
+		});
+	}, [router]);
 
 	const articleMutation = api.article.createArticle.useMutation({
 		onSuccess: (data) => {
@@ -52,7 +62,11 @@ function NewArticlePage() {
 					{articleMutation.error?.shape?.data?.zodError?.fieldErrors?.title}
 				</p>
 
-				<button type="submit" className="btn btn-primary">
+				<button
+					type="submit"
+					className="btn btn-primary"
+					disabled={articleMutation.isPending}
+				>
 					{articleMutation.isPending ? "Creating article..." : "Create article"}
 				</button>
 			</form>

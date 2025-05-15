@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { TRPCReactProvider } from "@/trpc/react";
 import { HydrateClient } from "@/trpc/server";
 import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
 import { Geist } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import Header from "./_layout/header";
@@ -25,13 +26,15 @@ export default function RootLayout({
 	return (
 		<html lang="en" className={`${geist.variable}`}>
 			<body>
-				<TRPCReactProvider>
-					<HydrateClient>
-						<Header />
-						<main>{children}</main>
-						<ToastContainer />
-					</HydrateClient>
-				</TRPCReactProvider>
+				<SessionProvider>
+					<TRPCReactProvider>
+						<HydrateClient>
+							<Header />
+							<main>{children}</main>
+							<ToastContainer />
+						</HydrateClient>
+					</TRPCReactProvider>
+				</SessionProvider>
 			</body>
 		</html>
 	);
