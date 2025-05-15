@@ -14,7 +14,12 @@ export default async function Home() {
       <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {articles !== null && articles.length > 0 ? (
           articles.map((article) => (
-            <ArticleCard key={article.id} {...article} />
+            <ArticleCard
+              key={article.id}
+              {...article}
+              authorName={article.author.name || ""}
+              authorImage={article.author.image || ""}
+            />
           ))
         ) : (
           <p className="w-full text-center text-accent">

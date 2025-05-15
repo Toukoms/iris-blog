@@ -11,6 +11,14 @@ export const articleRouter = createTRPCRouter({
       orderBy: {
         updatedAt: "desc",
       },
+      include: {
+        author: {
+          select: {
+            image: true,
+            name: true,
+          },
+        },
+      },
     });
   }),
   getArticleById: publicProcedure
@@ -24,6 +32,18 @@ export const articleRouter = createTRPCRouter({
           author: {
             select: {
               name: true,
+            },
+          },
+          comments: {
+            orderBy: {
+              createdAt: "desc",
+            },
+            select: {
+              id: true,
+              content: true,
+              createdAt: true,
+              authorId: true,
+              author: true,
             },
           },
         },

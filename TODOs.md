@@ -18,5 +18,5 @@ A running list of tasks and improvements for the application.
 - [X] Read article
 - [X] Remove article
 - [X] User dashboard (list of it articles)
-- [ ] Add comments in a article
+- [X] Add comments in a article
 - [ ] Add categories (tags)
