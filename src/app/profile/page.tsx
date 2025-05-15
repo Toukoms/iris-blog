@@ -31,8 +31,10 @@ async function ProfilePage() {
                 height={640}
               />
             ) : (
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-300/20">
-                <span>{user?.name?.slice(0, 2)}</span>
+              <div className="avatar placeholder">
+                <div className="w-10 rounded-full bg-neutral text-neutral-content">
+                  <span>{user?.name?.slice(2)}</span>
+                </div>
               </div>
             )}
             <div className="flex h-fit flex-col gap-2">
@@ -50,7 +52,12 @@ async function ProfilePage() {
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {articles && articles.length > 0 ? (
           articles.map((article) => (
-            <ArticleCard key={article.id} {...article} />
+            <ArticleCard
+              key={article.id}
+              {...article}
+              authorName={user?.name || ""}
+              authorImage={user?.image || ""}
+            />
           ))
         ) : (
           <q className="mt-8 block text-center text-accent">

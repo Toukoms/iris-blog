@@ -15,7 +15,11 @@
 }
 
 @layer base {
+	body {
+		@apply bg-base-100 text-base-content w-screen h-dvh overflow-hidden;
+	}
+
 	main {
-		@apply container mx-auto px-4 prose prose-sm xl:prose-lg prose-invert overflow-y-auto h-[92vh];
+		@apply container mx-auto px-4 prose prose-sm prose-invert overflow-y-auto h-[92vh];
 	}
 }
