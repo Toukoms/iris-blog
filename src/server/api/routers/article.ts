@@ -3,63 +3,74 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const articleRouter = createTRPCRouter({
-	getArticles: publicProcedure.query(({ ctx }) => {
-		return ctx.db.article.findMany({
-			where: {
-				published: true,
-			},
-			orderBy: {
-				createdAt: "desc",
-			},
-		});
-	}),
-	getArticleById: publicProcedure
-		.input(z.string().cuid())
-		.query(({ ctx, input }) => {
-			return ctx.db.article.findUnique({
-				where: {
-					id: input,
-				},
-				include: {
-					author: {
-						select: {
-							name: true,
-						},
-					},
-				},
-			});
-		}),
-	createArticle: protectedProcedure
-		.input(createArticleSchema)
-		.mutation(({ ctx, input }) => {
-			return ctx.db.article.create({
-				data: {
-					title: input.title,
-					authorId: ctx.session.user.id,
-				},
-			});
-		}),
-	updateArticle: protectedProcedure
-		.input(editArticleSchema)
-		.mutation(({ ctx, input }) => {
-			return ctx.db.article.update({
-				where: {
-					id: input.id,
-				},
-				data: {
-					title: input.title,
-					content: input.content,
-					published: input.published,
-				},
-			});
-		}),
-	deleteArticleById: protectedProcedure
-		.input(z.string().cuid())
-		.mutation(({ ctx, input }) => {
-			return ctx.db.article.delete({
-				where: {
-					id: input,
-				},
-			});
-		}),
+  getArticles: publicProcedure.query(({ ctx }) => {
+    return ctx.db.article.findMany({
+      where: {
+        published: true,
+      },
+      orderBy: {
+        updatedAt: "desc",
+      },
+    });
+  }),
+  getArticleById: publicProcedure
+    .input(z.string().cuid())
+    .query(({ ctx, input }) => {
+      return ctx.db.article.findUnique({
+        where: {
+          id: input,
+        },
+        include: {
+          author: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
+    }),
+  createArticle: protectedProcedure
+    .input(createArticleSchema)
+    .mutation(({ ctx, input }) => {
+      return ctx.db.article.create({
+        data: {
+          title: input.title,
+          authorId: ctx.session.user.id,
+        },
+      });
+    }),
+  updateArticle: protectedProcedure
+    .input(editArticleSchema)
+    .mutation(({ ctx, input }) => {
+      return ctx.db.article.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          title: input.title,
+          markdownContent: input.markdownContent,
+          jsonContent: input.jsonContent,
+          published: input.published,
+        },
+      });
+    }),
+  deleteArticleById: protectedProcedure
+    .input(z.string().cuid())
+    .mutation(({ ctx, input }) => {
+      return ctx.db.article.delete({
+        where: {
+          id: input,
+        },
+      });
+    }),
+  getUserArticles: protectedProcedure.query(({ ctx }) => {
+    return ctx.db.article.findMany({
+      where: {
+        authorId: ctx.session.user.id,
+      },
+      orderBy: {
+        updatedAt: "desc",
+      },
+    });
+  }),
 });
