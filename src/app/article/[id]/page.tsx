@@ -1,9 +1,9 @@
 import { auth } from "@/server/auth";
 import { api } from "@/trpc/server";
+import DOMPurify from "isomorphic-dompurify";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { BiEdit, BiTrash } from "react-icons/bi";
-import ReactMarkdown from "react-markdown";
 import Comment from "./_components/comment";
 import CommentInput from "./_components/comment-input";
 
@@ -21,7 +21,7 @@ async function ArticleViewPage({
   const isAuthor = user?.id === article?.authorId;
 
   if (!article) {
-    return <div>Loading</div>;
+    return <div>Loading...</div>;
   }
 
   if (!isAuthor && !article.published) {
@@ -69,7 +69,13 @@ async function ArticleViewPage({
         )}
       </div>
 
-      <ReactMarkdown>{article.markdownContent}</ReactMarkdown>
+      <div
+        /* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(article.content || ""),
+        }}
+      />
+
       <div className="divider my-8" />
       <CommentInput articleId={article.id} />
       <div className="mt-8 flex flex-col gap-4">

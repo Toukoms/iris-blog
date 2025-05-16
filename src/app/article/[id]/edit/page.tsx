@@ -1,38 +1,20 @@
 "use client";
-
-import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
 import { editArticleSchema } from "@/schema/article";
 import { api } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { use, useEffect } from "react";
-import { type SubmitHandler, useForm } from "react-hook-form";
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 import { toast } from "react-toastify";
 import type { z } from "zod";
 
 type TEditArticleForm = z.infer<typeof editArticleSchema>;
 type Params = Promise<{ id: string }>;
 
-const welcomeText = `
-{
-	"type": "doc",
-	"content": [
-		{
-			"type": "heading",
-			"attrs": {
-				"textAlign": null,
-				"level": 1
-			},
-			"content": [
-				{
-					"type": "text",
-					"text": "Start typing here"
-				}
-			]
-		}
-  ]
-}`;
+const welcomeText = "<h2>Start writing here...</h2>";
 
 function EditArticlePage(props: { params: Params }) {
   const router = useRouter();
@@ -51,7 +33,8 @@ function EditArticlePage(props: { params: Params }) {
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    control,
+    formState: { errors },
     setError,
     setValue,
   } = useForm<TEditArticleForm>({
@@ -88,9 +71,15 @@ function EditArticlePage(props: { params: Params }) {
       router.back();
       return;
     }
-  }, [articleQuery, router, setValue]);
+  }, [
+    articleQuery.isSuccess,
+    articleQuery.data,
+    articleQuery.isError,
+    router,
+    setValue,
+  ]);
 
-  const updateArticleMutation = api.article.updateArticle.useMutation({
+  const updateArticle = api.article.updateArticle.useMutation({
     onSuccess: () => {
       toast.success("Article saved successfully");
       router.push(`/article/${id}`);
@@ -120,7 +109,7 @@ function EditArticlePage(props: { params: Params }) {
   });
 
   const onSubmit: SubmitHandler<TEditArticleForm> = (data) => {
-    updateArticleMutation.mutate(data);
+    updateArticle.mutate(data);
   };
 
   if (articleQuery.isLoading) {
@@ -153,20 +142,31 @@ function EditArticlePage(props: { params: Params }) {
 
         <fieldset className="fieldset w-full">
           <legend className="fieldset-legend">Article content</legend>
-          <div className="w-full overflow-hidden rounded-lg border border-gray-500/40">
-            <SimpleEditor
-              content={JSON.parse(
-                articleQuery.data?.jsonContent || welcomeText
-              )}
-              onChange={(json, markdown) => {
-                setValue("jsonContent", json);
-                setValue("markdownContent", markdown);
-              }}
-            />
-          </div>
-          {errors.markdownContent?.message && (
+          <Controller
+            name="content"
+            control={control}
+            render={({ field }) => (
+              <div className="w-full">
+                <ReactQuill
+                  theme="snow"
+                  modules={{
+                    toolbar: [
+                      [{ header: [2, 3, 4, false] }],
+                      ["bold", "italic", "underline", "strike"],
+                      [{ list: "ordered" }, { list: "bullet" }],
+                      ["link", "image"],
+                      ["clean"],
+                    ],
+                  }}
+                  value={field.value || welcomeText}
+                  onChange={(value) => field.onChange(value)}
+                />
+              </div>
+            )}
+          />
+          {errors.content?.message && (
             <p className="my-0 mt-2 text-error text-sm">
-              {errors.markdownContent.message}
+              {errors.content.message}
             </p>
           )}
         </fieldset>
@@ -189,9 +189,9 @@ function EditArticlePage(props: { params: Params }) {
         <button
           type="submit"
           className="btn btn-primary"
-          disabled={updateArticleMutation.isPending}
+          disabled={updateArticle.isPending}
         >
-          {updateArticleMutation.isPending ? "Saving..." : "Save"}
+          {updateArticle.isPending ? "Saving..." : "Save"}
         </button>
 
         {errors.root?.message && (

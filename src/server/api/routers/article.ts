@@ -68,8 +68,7 @@ export const articleRouter = createTRPCRouter({
         },
         data: {
           title: input.title,
-          markdownContent: input.markdownContent,
-          jsonContent: input.jsonContent,
+          content: input.content,
           published: input.published,
         },
       });

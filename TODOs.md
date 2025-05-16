@@ -26,8 +26,8 @@ A running list of tasks and improvements for the application.
 - [X] Make profile page ISR
 - [X] Change forms using react hook form
 - [X] Redirect to profile page after deleting an article
-- [ ] Change rich text editor to Quill
-- [ ] Update the article content render to interweave
+- [X] Change the current rich text editor to React Quill
+- [X] Render article from HTML string
 - [ ] Add categories (tags)
 - [ ] Add filtering in article list
 - [ ] Implement infinite scroll in article list

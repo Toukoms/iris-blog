@@ -6,7 +6,6 @@ export const createArticleSchema = z.object({
 
 export const editArticleSchema = createArticleSchema.extend({
   id: z.string().cuid(),
-  markdownContent: z.string().min(42),
-  jsonContent: z.string(),
+  content: z.string().min(12),
   published: z.boolean().optional(),
 });

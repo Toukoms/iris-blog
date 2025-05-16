@@ -11,8 +11,7 @@ async function ArticleCard(
   const session = await auth();
   const user = session?.user;
 
-  const { id, title, authorImage, authorName, markdownContent, updatedAt } =
-    article;
+  const { id, title, authorImage, authorName, content, updatedAt } = article;
 
   return (
     <div className="h-fit w-full rounded-lg border bg-base-300 p-4 px-8 text-left no-underline shadow-sm">
@@ -49,9 +48,9 @@ async function ArticleCard(
             </span>
           </div>
 
-          {markdownContent ? (
+          {content ? (
             <div className="mb-4 line-clamp-3 h-20 overflow-hidden text-sm">
-              <ReactMarkdown>{markdownContent.slice(0, 240)}</ReactMarkdown>
+              <ReactMarkdown>{content.slice(0, 240)}</ReactMarkdown>
             </div>
           ) : (
             <p className="my-2 h-20 text-accent text-sm italic">No content</p>
