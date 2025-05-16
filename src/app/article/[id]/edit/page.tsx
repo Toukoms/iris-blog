@@ -125,7 +125,7 @@ function EditArticlePage(props: { params: Params }) {
       <h2 className="mt-4">Edit Article</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <fieldset className="fieldset">
-          <legend className="fieldset-legend">Article title</legend>
+          <legend className="fieldset-legend">Title</legend>
           <input
             type="text"
             className="input w-full max-w-xl"
@@ -137,11 +137,29 @@ function EditArticlePage(props: { params: Params }) {
               {errors.title.message}
             </p>
           )}
-          <p className="label">You can edit your article title here</p>
+          <p className="label my-0">You can edit your article title here</p>
+        </fieldset>
+
+        <fieldset className="fieldset mb-0">
+          <legend className="fieldset-legend">Description</legend>
+          <textarea
+            className="textarea w-full resize-none"
+            rows={3}
+            placeholder="Write a short description of your article..."
+            {...register("description", { required: "Title is required" })}
+          />
+          {errors.title?.message && (
+            <p className="my-0 mt-2 text-error text-sm">
+              {errors.title.message}
+            </p>
+          )}
+          <p className="label my-0">
+            You can edit your article description here.
+          </p>
         </fieldset>
 
         <fieldset className="fieldset w-full">
-          <legend className="fieldset-legend">Article content</legend>
+          <legend className="fieldset-legend">Content</legend>
           <Controller
             name="content"
             control={control}

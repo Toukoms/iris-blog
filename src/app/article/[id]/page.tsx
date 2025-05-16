@@ -69,12 +69,16 @@ async function ArticleViewPage({
         )}
       </div>
 
-      <div
-        /* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */
-        dangerouslySetInnerHTML={{
-          __html: DOMPurify.sanitize(article.content || ""),
-        }}
-      />
+      <blockquote>{article.description}</blockquote>
+
+      <div className="px-4">
+        <div
+          /* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(article.content || ""),
+          }}
+        />
+      </div>
 
       <div className="divider my-8" />
       <CommentInput articleId={article.id} />

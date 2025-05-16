@@ -17,7 +17,7 @@ function NewArticlePage() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors },
     setError,
   } = useForm<TCreateArticle>({
     resolver: zodResolver(createArticleSchema),
@@ -53,10 +53,8 @@ function NewArticlePage() {
     },
   });
 
-  const onSubmit: SubmitHandler<TCreateArticle> = async ({ title }) => {
-    createArticle.mutate({
-      title: title,
-    });
+  const onSubmit: SubmitHandler<TCreateArticle> = async (data) => {
+    createArticle.mutate(data);
   };
 
   return (
@@ -67,7 +65,7 @@ function NewArticlePage() {
         className="flex w-full flex-col space-y-4"
       >
         <fieldset className="fieldset mb-0">
-          <legend className="fieldset-legend">Article title</legend>
+          <legend className="fieldset-legend">Title</legend>
           <input
             type="text"
             className="input w-full"
@@ -84,8 +82,30 @@ function NewArticlePage() {
           </p>
         </fieldset>
 
-        <button type="submit" className="btn btn-primary" disabled={isLoading}>
-          {isLoading ? "Creating article..." : "Create article"}
+        <fieldset className="fieldset mb-0">
+          <legend className="fieldset-legend">Description</legend>
+          <textarea
+            className="textarea w-full resize-none"
+            rows={3}
+            placeholder="Write a short description of your article..."
+            {...register("description", { required: "Title is required" })}
+          />
+          {errors.title?.message && (
+            <p className="my-0 mt-2 text-error text-sm">
+              {errors.title.message}
+            </p>
+          )}
+          <p className="label my-0">
+            You can edit article description later in the article editor.
+          </p>
+        </fieldset>
+
+        <button
+          type="submit"
+          className="btn btn-primary mt-4"
+          disabled={createArticle.isPending}
+        >
+          {createArticle.isPending ? "Creating article..." : "Create article"}
         </button>
       </form>
     </div>

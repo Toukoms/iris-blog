@@ -55,6 +55,7 @@ export const articleRouter = createTRPCRouter({
       return ctx.db.article.create({
         data: {
           title: input.title,
+          description: input.description,
           authorId: ctx.session.user.id,
         },
       });
@@ -68,6 +69,7 @@ export const articleRouter = createTRPCRouter({
         },
         data: {
           title: input.title,
+          description: input.description,
           content: input.content,
           published: input.published,
         },
