@@ -5,6 +5,8 @@ import { api } from "@/trpc/server";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
+export const revalidate = 120;
+
 async function ProfilePage() {
   const session = await auth();
   const authenticated = session?.user !== undefined;
