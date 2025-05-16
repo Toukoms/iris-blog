@@ -7,6 +7,8 @@ import ReactMarkdown from "react-markdown";
 import Comment from "./_components/comment";
 import CommentInput from "./_components/comment-input";
 
+export const revalidate = 120;
+
 async function ArticleViewPage({
   params,
 }: {

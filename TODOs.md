@@ -19,4 +19,14 @@ A running list of tasks and improvements for the application.
 - [X] Remove article
 - [X] User dashboard (list of it articles)
 - [X] Add comments in a article
+
+## Improvements
+
+- [ ] Make article view ISR
+- [ ] Make profile page ISR
+- [ ] Change forms using react hook forms
+- [ ] Change rich text editor to Quill
+- [ ] Update the article content render to interweave
 - [ ] Add categories (tags)
+- [ ] Add filtering in article list
+- [ ] Implement infinite scroll in article list
