@@ -19,7 +19,7 @@ model Comment {
 
 model Article {
     id              String    @id @default(cuid())
-    title           String
+    title           String    @unique
     markdownContent String?
     jsonContent     String?
     published       Boolean   @default(false)

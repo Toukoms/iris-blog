@@ -62,6 +62,7 @@ async function ArticleCard(
         <div className="flex justify-end gap-4">
           <Link
             href={`/article/${id}/edit`}
+            prefetch={false}
             className="btn btn-sm btn-outline btn-primary btn-square"
           >
             <BiEdit />
