@@ -13,7 +13,7 @@ export default async function Home() {
 
       {articles !== null && articles.length > 0 ? (
         articles.map((article) => (
-          <div key={article.id} className="grid w-full grid-cols-1">
+          <div key={article.id} className="grid w-full grid-cols-1 gap-4">
             <ArticleCard
               {...article}
               authorName={article.author.name || ""}
