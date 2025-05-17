@@ -11,22 +11,21 @@ export default async function Home() {
         articles.
       </p>
 
-      <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {articles !== null && articles.length > 0 ? (
-          articles.map((article) => (
+      {articles !== null && articles.length > 0 ? (
+        articles.map((article) => (
+          <div key={article.id} className="grid w-full grid-cols-1 gap-4">
             <ArticleCard
-              key={article.id}
               {...article}
               authorName={article.author.name || ""}
               authorImage={article.author.image || ""}
             />
-          ))
-        ) : (
-          <p className="w-full text-center text-accent">
-            No article for the moment. Stay tuned for more updates!
-          </p>
-        )}
-      </div>
+          </div>
+        ))
+      ) : (
+        <p className="w-full text-center text-accent">
+          No article for the moment. Stay tuned for more updates!
+        </p>
+      )}
     </div>
   );
 }

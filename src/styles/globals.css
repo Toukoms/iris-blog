@@ -20,6 +20,6 @@
 	}
 
 	main {
-		@apply container mx-auto px-4 prose prose-sm prose-invert overflow-y-auto h-[92vh];
+		@apply container mx-auto px-4 prose md:prose-lg lg:prose-xl prose-invert overflow-y-auto h-[92vh];
 	}
 }

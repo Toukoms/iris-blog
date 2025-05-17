@@ -1,77 +1,115 @@
 "use client";
 
-import type { createArticleSchema } from "@/schema/article";
+import { createArticleSchema } from "@/schema/article";
 import { api } from "@/trpc/react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import type { z } from "zod";
 
 type TCreateArticle = z.infer<typeof createArticleSchema>;
 
 function NewArticlePage() {
-	const router = useRouter();
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm<TCreateArticle>({
+    resolver: zodResolver(createArticleSchema),
+  });
 
-	useEffect(() => {
-		getSession().then((session) => {
-			if (!session) {
-				router.back();
-			}
-		});
-	}, [router]);
+  useEffect(() => {
+    getSession().then((session) => {
+      if (!session) {
+        router.back();
+      }
+    });
+  }, [router]);
 
-	const articleMutation = api.article.createArticle.useMutation({
-		onSuccess: (data) => {
-			toast.success("Article created successfully");
-			router.replace(`/article/${data.id}/edit`);
-		},
-		onError: (error) => {
-			toast.error("Error creating article");
-		},
-	});
+  const createArticle = api.article.createArticle.useMutation({
+    onSuccess: (data) => {
+      toast.success("Article created successfully");
+      router.replace(`/article/${data.id}/edit`);
+    },
+    onError: (error) => {
+      if (error.data?.zodError) {
+        const { fieldErrors } = error.data.zodError;
+        for (const [field, errors] of Object.entries(fieldErrors)) {
+          if (errors) {
+            for (const error of errors) {
+              setError(field as keyof TCreateArticle, {
+                type: "server",
+                message: error,
+              });
+            }
+          }
+        }
+      }
+    },
+  });
 
-	const handleSubmit = async (event: React.FormEvent) => {
-		event.preventDefault();
-		const formData = new FormData(event.currentTarget as HTMLFormElement);
+  const onSubmit: SubmitHandler<TCreateArticle> = async (data) => {
+    createArticle.mutate(data);
+  };
 
-		articleMutation.mutate({
-			title: formData.get("title") as string,
-		} as TCreateArticle);
-	};
+  return (
+    <div className="mx-auto max-w-xl ">
+      <h2>Create a new article</h2>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex w-full flex-col space-y-4"
+      >
+        <fieldset className="fieldset mb-0">
+          <legend className="fieldset-legend">Title</legend>
+          <input
+            type="text"
+            className="input w-full"
+            placeholder="My awesome article"
+            {...register("title", { required: "Title is required" })}
+          />
+          {errors.title?.message && (
+            <p className="my-0 mt-2 text-error text-sm">
+              {errors.title.message}
+            </p>
+          )}
+          <p className="label my-0">
+            You can edit article title later in the article editor.
+          </p>
+        </fieldset>
 
-	return (
-		<div className="mx-auto max-w-xl ">
-			<h2>Create a new article</h2>
-			<form onSubmit={handleSubmit} className="flex w-full flex-col space-y-4">
-				<fieldset className="fieldset mb-0">
-					<legend className="fieldset-legend">Article title</legend>
-					<input
-						type="text"
-						className="input w-full"
-						placeholder="My awesome article"
-						name="title"
-						required
-					/>
-					<p className="label my-0">
-						You can edit article title later in the article editor.
-					</p>
-				</fieldset>
+        <fieldset className="fieldset mb-0">
+          <legend className="fieldset-legend">Description</legend>
+          <textarea
+            className="textarea w-full resize-none"
+            rows={3}
+            placeholder="Write a short description of your article..."
+            {...register("description", { required: "Title is required" })}
+          />
+          {errors.title?.message && (
+            <p className="my-0 mt-2 text-error text-sm">
+              {errors.title.message}
+            </p>
+          )}
+          <p className="label my-0">
+            You can edit article description later in the article editor.
+          </p>
+        </fieldset>
 
-				<p className="my-4 h-8 pt-2 text-error text-sm">
-					{articleMutation.error?.shape?.data?.zodError?.fieldErrors?.title}
-				</p>
-
-				<button
-					type="submit"
-					className="btn btn-primary"
-					disabled={articleMutation.isPending}
-				>
-					{articleMutation.isPending ? "Creating article..." : "Create article"}
-				</button>
-			</form>
-		</div>
-	);
+        <button
+          type="submit"
+          className="btn btn-primary mt-4"
+          disabled={createArticle.isPending}
+        >
+          {createArticle.isPending ? "Creating article..." : "Create article"}
+        </button>
+      </form>
+    </div>
+  );
 }
 
 export default NewArticlePage;
