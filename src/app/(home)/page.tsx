@@ -12,15 +12,16 @@ export default async function Home() {
       </p>
 
       {articles !== null && articles.length > 0 ? (
-        articles.map((article) => (
-          <div key={article.id} className="grid w-full grid-cols-1 gap-4">
+        <div className="grid w-full grid-cols-1 gap-4">
+          {articles.map((article) => (
             <ArticleCard
+              key={article.id}
               {...article}
               authorName={article.author.name || ""}
               authorImage={article.author.image || ""}
             />
-          </div>
-        ))
+          ))}
+        </div>
       ) : (
         <p className="w-full text-center text-accent">
           No article for the moment. Stay tuned for more updates!
