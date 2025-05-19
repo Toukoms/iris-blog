@@ -84,14 +84,16 @@ export const articleRouter = createTRPCRouter({
         },
       });
     }),
-  getUserArticles: protectedProcedure.query(({ ctx }) => {
-    return ctx.db.article.findMany({
-      where: {
-        authorId: ctx.session.user.id,
-      },
-      orderBy: {
-        updatedAt: "desc",
-      },
-    });
-  }),
+  getUserArticles: publicProcedure
+    .input(z.string().cuid())
+    .query(({ ctx, input }) => {
+      return ctx.db.article.findMany({
+        where: {
+          authorId: input,
+        },
+        orderBy: {
+          updatedAt: "desc",
+        },
+      });
+    }),
 });

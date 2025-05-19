@@ -29,8 +29,9 @@ A running list of tasks and improvements for the application.
 - [X] Change the current rich text editor to React Quill
 - [X] Render article from HTML string
 - [X] Add description field in article
-- [ ] Show profile of the author from article
+- [X] Show profile of the author from article
 - [ ] Add categories (tags)
 - [ ] Add filtering in article list
 - [ ] Implement infinite scroll in article list
 - [ ] Change users articles in profile to be table
+- [ ] Follow users

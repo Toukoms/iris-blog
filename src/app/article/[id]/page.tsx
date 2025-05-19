@@ -35,17 +35,17 @@ async function ArticleViewPage({
         <div className="mb-4 ml-2 flex items-center gap-2">
           <p className="my-0 text-sm">
             By{" "}
-            <span className="font-semibold text-accent">
+            <Link href={`/profile/${article.authorId}`} className="font-semibold text-accent">
               {article.author.name}
-            </span>
+            </Link>
           </p>
           {" | "}
           <p className="my-0 text-sm">
-            Created at : {new Date(article.createdAt).toLocaleDateString()}
+            Created at : {`${new Date(article.createdAt).toLocaleDateString()} ${new Date(article.createdAt).toLocaleTimeString()}`}
           </p>
           {" | "}
           <p className="my-0 text-sm">
-            Updated at : {new Date(article.updatedAt).toLocaleDateString()}
+            Updated at : {`${new Date(article.updatedAt).toLocaleDateString()} ${new Date(article.updatedAt).toLocaleTimeString()}`}
           </p>
           {!article.published && (
             <div className="badge badge-accent ml-4">Draft</div>
